@@ -17,11 +17,16 @@ const siteData = new Map();
  */
 const getContentIds = async (page) => {
     await page.goto(baseUrl);
+    await new Promise(r => setTimeout(r, 5000));
+    console.log(`Arrived at ${baseUrl}`)
 
     //Make sure the yearly calendar is selected and that content is loaded
     const yearBtnSelector = '.fc-year-button';
     await page.waitForSelector(yearBtnSelector);
     await page.click(yearBtnSelector);
+    console.log(`Clicked year button`);
+
+    await new Promise(r => setTimeout(r, 5000));
 
     await page.waitForSelector('#year-calendar');
     await page.waitForSelector('.fc-content');
@@ -47,9 +52,12 @@ const getContentIds = async (page) => {
 
 const scrapeData = async (page, id) => {
     await page.goto(`${baseUrl}/motedag/${id}`);
-    await page.waitForSelector('#modalContent > div');
+    await new Promise(r => setTimeout(r, 5000));
+    console.log(`Scraping ${id}`);
 
-    await new Promise(r => setTimeout(r, 2000));
+    await page.waitForSelector('#modalContent');
+
+    await new Promise(r => setTimeout(r, 5000));
 
     const results = await page.$eval('.modal-content', e => {
         const patt = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script\s*>/gi;
@@ -123,7 +131,7 @@ const checkId = async (page, id) => {
         } else {
             currentId = ids[ids.indexOf(currentId) + 1];
         }
-    }, 5000);
+    }, 15000);
 
 
     const heartbeat = setInterval(async () => {
