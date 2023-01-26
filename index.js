@@ -51,6 +51,7 @@ const getContentIds = async (page) => {
 
 
 const scrapeData = async (page, id) => {
+    console.log(`Navigating to ${baseUrl}/motedag/${id}`);
     await page.goto(`${baseUrl}/motedag/${id}`);
     await new Promise(r => setTimeout(r, 5000));
     console.log(`Scraping ${id}`);
@@ -92,7 +93,7 @@ const checkId = async (page, id) => {
             <br>
             <h1>Gammel data:</h1>
             <div style="padding: 15px; background: #f4f4f4;">
-                ${newData}
+                ${oldData}
             </div>
         `
         mg.messages.create('post.bodonu.no', {
