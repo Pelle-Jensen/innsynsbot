@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
 require('dotenv').config()
 
 const formData = require('form-data');
@@ -98,7 +97,7 @@ const checkId = async (page, id) => {
         `
         mg.messages.create('post.bodonu.no', {
             from: "[BOT] Innsynsportalen <bot@lynxpub.no>",
-            to: [process.env.REDAKSJON_EMAIL],
+            to: [process.env.REDAKSJON_EMAIL, process.env.PELLE_EMAIL],
             subject: `Forandring i møteplanen: (${header ? `${header} ${id}` : id})`,
             text: html,
             html: html
@@ -149,9 +148,9 @@ const checkId = async (page, id) => {
     mg.messages.create('post.bodonu.no', {
         from: "[BOT] Innsynsportalen <bot@lynxpub.no>",
         to: [process.env.PELLE_EMAIL],
-        subject: `I am alive!`,
-        text: "I am alive!",
-        html: "I am alive!"
+        subject: `Reboot!`,
+        text: "Reboot!",
+        html: "Reboot!"
     })
     .then(msg => console.log(msg)).catch(err => console.error(err));
 
